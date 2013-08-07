@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     if user.nil?
-      create(params)
+      render :json => user.errors, :status :unprocessable_entity
     else
       p params
       user.update_attributes(params[:user])

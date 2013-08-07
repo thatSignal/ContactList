@@ -40,6 +40,4 @@ RestClient.put(put, {
     username: 'PECAN',
     email: 'pecan@nutworld.com'
   }
-  #'user[username]' => "PEANUT",
-  #'user[email]' => "iampeanut@world.com"
 })
