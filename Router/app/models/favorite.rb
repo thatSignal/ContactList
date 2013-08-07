@@ -11,7 +11,7 @@ class Favorite < ActiveRecord::Base
   belongs_to(
     :contact,
     :class_name => "Contact",
-    :foreign_key => :user_id,
+    :foreign_key => :contact_id,
     :primary_key => :id
   )
 

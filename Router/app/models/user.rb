@@ -6,20 +6,23 @@ class User < ActiveRecord::Base
     :contacts,
     :class_name => "Contact",
     :foreign_key => :user_id,
-    :primary_key => :id
+    :primary_key => :id,
+    :dependent => :destroy
   )
 
   has_many(
     :favorites,
     :class_name => "Favorite",
     :foreign_key => :user_id,
-    :primary_key => :id
+    :primary_key => :id,
+    :dependent => :destroy
   )
 
   has_many(
     :favorite_contacts,
     :through => :favorites,
-    :source => :contact
+    :source => :contact,
+    :dependent => :destroy
   )
 
 end

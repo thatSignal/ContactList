@@ -12,7 +12,8 @@ class Contact < ActiveRecord::Base
     :favorite,
     :class_name => "Favorite",
     :foreign_key => :user_id,
-    :primary_key => :id
+    :primary_key => :id,
+    :dependent => :destroy
   )
 
 

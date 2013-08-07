@@ -29,7 +29,15 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    @contact = Contact.find(params[:id])
 
+    if @contact.nil?
+      render :json => user.errors, status: :unprocessable_entity
+    else
+      @contact.destroy
+    end
+
+    render :json => @contact
   end
 
 end
