@@ -2,13 +2,16 @@ class ContactsController < ApplicationController
   def index
     @contacts = Contact.where("user_id = ?", params[:user_id])
     render :json => @contacts
-
-    p @contacts
   end
 
   def create
-    @contact = Contact.create!(params[:contact])
-    render :json => @contact
+    @contact = Contact.new(params[:contact])
+    if @contact.save
+      render :json => @contact
+    else
+      render :json => contact.errors, status: :unprocessable_entity
+    end
+
   end
 
   def show
@@ -20,7 +23,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     if @contact.nil?
-      render :json => user.errors, status: :unprocessable_entity
+      render :json => contact.errors, status: :unprocessable_entity
     else
       @contact.update_attributes(params[:contact])
     end
@@ -31,10 +34,10 @@ class ContactsController < ApplicationController
   def destroy
     @contact = Contact.find(params[:id])
 
-    if @contact.nil?
-      render :json => user.errors, status: :unprocessable_entity
-    else
+    if @contact
       @contact.destroy
+    else
+      render :json => contact.errors, status: :unprocessable_entity
     end
 
     render :json => @contact

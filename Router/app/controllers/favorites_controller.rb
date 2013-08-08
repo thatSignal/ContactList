@@ -3,44 +3,25 @@ class FavoritesController < ApplicationController
     user = User.find(params[:user_id])
     @favorites =  user.favorite_contacts
     render :json => @favorites
-
-    p @favorites
   end
 
   def create
-    @favorite = Favorite.create!(params[:favorite])
-    render :json => @favorite
-  end
-
-  def show
-    @favorite = Favorite.find(params[:id]).contact
-    render :json => @favorite
-
-    p @favorite
-  end
-
-  def update
-    @favorite = Favorite.find(params[:id])
-
-    if @favorite.nil?
-      render :json => user.errors, status: :unprocessable_entity
+    @favorite = Favorite.new(params[:favorite])
+    if @favorite.save
+      render :json => @favorite
     else
-      @favorite.update_attributes(params[:favorite])
+      render :json => favorite.errors, status: :unprocessable_entity
     end
 
-    render :json => @favorite
   end
 
   def destroy
     @favorite = Favorite.find(params[:id])
-
-    if @favorite.nil?
-      render :json => user.errors, status: :unprocessable_entity
+    if @favorite.destroy
+      render :json => @favorite
     else
-      @favorite.destroy
+      render :json => favorite.errors, status: :unprocessable_entity
     end
-
-    render :json => @favorite
   end
 
 end
